@@ -1,0 +1,18 @@
+# JDK
+/jdk17/
+
+# Logs
+*.log
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
