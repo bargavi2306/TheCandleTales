@@ -15,62 +15,43 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-150/70 shadow-xs">
+    <header className="sticky top-0 z-40 bg-[#FAF8F5] border-b border-[#E9DFD0] shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 relative">
+        <div className="flex items-center justify-between h-18 sm:h-28 relative">
           
-          {/* Mobile Menu Button - Left-aligned on mobile only */}
-          <div className="flex items-center md:hidden">
+          {/* Hamburger Menu Button - Left-aligned */}
+          <div className="flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-1.5 hover:bg-[#CBB59B]/10 rounded-full transition-colors cursor-pointer text-[#3D2E1F]"
+              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-[#E9DFD0]/30 rounded-full transition-colors cursor-pointer text-[#3D2E1F]"
               aria-label="Toggle navigation menu"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="h-6 w-6 sm:h-7 sm:w-7" /> : <Menu className="h-6 w-6 sm:h-7 sm:w-7" />}
             </button>
           </div>
 
-          {/* Logo - Centered on mobile, Left-aligned on desktop */}
-          <div className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 flex-shrink-0">
-            <Link to="/" className="flex items-center gap-2 sm:gap-2.5 font-serif text-[#6E4E37]">
-              <div className="h-8.5 w-8.5 sm:h-9 sm:w-9 bg-[#8B6B4A] rounded-full flex items-center justify-center text-white shadow-sm flex-shrink-0">
-                <Sparkles className="h-4 w-4" />
+          {/* Logo & Brand Name - Centered */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-3.5 select-none">
+            <Link to="/" className="flex items-center gap-2 sm:gap-3">
+              <div className="h-10 w-10 sm:h-16 sm:w-16 bg-[#5A4634] rounded-full flex items-center justify-center text-white shadow-sm flex-shrink-0">
+                <Sparkles className="h-5 w-5 sm:h-8 sm:w-8 text-[#B08A4A] fill-[#B08A4A]" />
               </div>
-              <span className="font-semibold text-base sm:text-lg tracking-wider">The Candle Tales</span>
+              <span className="font-serif font-bold text-lg sm:text-2xl lg:text-[34px] tracking-wide text-[#3D2E1F] whitespace-nowrap">
+                The Candle Tales
+              </span>
             </Link>
           </div>
 
-          {/* Desktop Navigation Links - Centered */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-700">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.path;
-              return (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className={`hover:text-primary transition-colors py-2 relative ${
-                    isActive ? 'text-primary' : ''
-                  }`}
-                >
-                  {link.name}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Cart Badge - Right-aligned (both mobile and desktop) */}
+          {/* Cart Badge - Right-aligned */}
           <div className="flex items-center">
             <CartBadge />
           </div>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile/Desktop Dropdown Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-4 space-y-1 shadow-md animate-slideDown">
+        <div className="absolute top-full left-0 right-0 bg-[#FAF8F5] border-b border-[#E9DFD0] px-6 pt-2 pb-6 space-y-1 shadow-md animate-slideDown z-50">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
             return (
@@ -78,8 +59,8 @@ const Navbar = () => {
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block px-4 py-3 rounded-xl text-base font-semibold transition-all ${
-                  isActive ? 'bg-bg-cream text-primary' : 'text-gray-600 hover:bg-gray-50'
+                className={`block px-4 py-3 rounded-xl text-base font-bold transition-all ${
+                  isActive ? 'bg-[#E9DFD0] text-[#5A4634]' : 'text-gray-700 hover:bg-gray-100/50'
                 }`}
               >
                 {link.name}

@@ -17,13 +17,28 @@ const Contact = () => {
       return;
     }
     setSubmitting(true);
-    setTimeout(() => {
-      addToast("Your inquiry has been submitted! We will respond shortly.", "success");
-      setName('');
-      setEmail('');
-      setMessage('');
-      setSubmitting(false);
-    }, 1000);
+
+    // Format message
+    const formattedText = `Hello The Candle Tales,
+
+I have a contact inquiry:
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}`;
+
+    const whatsappUrl = `https://wa.me/${BUSINESS_CONFIG.whatsAppNumber}?text=${encodeURIComponent(formattedText)}`;
+    
+    // Open in a new tab
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    addToast("Redirecting to WhatsApp to send your inquiry...", "success");
+    setName('');
+    setEmail('');
+    setMessage('');
+    setSubmitting(false);
   };
 
   return (
