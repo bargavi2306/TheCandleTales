@@ -2,7 +2,7 @@ import React from 'react';
 
 const SkeletonCard = () => {
   return (
-    <div className="bg-white border border-gray-150/70 rounded-2xl overflow-hidden shadow-sm animate-pulse space-y-4 p-5">
+    <div className="bg-white border border-[#E9DFD0] rounded-2xl overflow-hidden shadow-xs animate-pulse p-4 sm:p-5 flex flex-col justify-between h-full">
       {/* Aspect Ratio Box */}
       <div className="bg-gray-200 aspect-square w-full rounded-xl"></div>
       

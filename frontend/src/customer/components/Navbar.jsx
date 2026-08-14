@@ -16,27 +16,27 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-40 bg-[#FAF8F5] border-b border-[#E9DFD0] shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 sm:h-28 relative">
+      <div className="max-w-7xl mx-auto px-4 min-[800px]:px-12">
+        <div className="flex items-center justify-between h-20 min-[800px]:h-[90px] relative">
           
           {/* Hamburger Menu Button - Left-aligned */}
           <div className="flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-[#E9DFD0]/30 rounded-full transition-colors cursor-pointer text-[#3D2E1F]"
+              className="w-10 h-10 min-[800px]:w-12 min-[800px]:h-12 flex items-center justify-center hover:bg-[#E9DFD0]/30 rounded-full transition-colors cursor-pointer text-[#3D2E1F]"
               aria-label="Toggle navigation menu"
             >
-              {isMenuOpen ? <X className="h-6 w-6 sm:h-7 sm:w-7" /> : <Menu className="h-6 w-6 sm:h-7 sm:w-7" />}
+              {isMenuOpen ? <X className="h-6 w-6 min-[800px]:h-7 min-[800px]:w-7" /> : <Menu className="h-6 w-6 min-[800px]:h-7 min-[800px]:w-7" />}
             </button>
           </div>
 
           {/* Logo & Brand Name - Centered */}
           <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-3.5 select-none">
             <Link to="/" className="flex items-center gap-2 sm:gap-3">
-              <div className="h-10 w-10 sm:h-16 sm:w-16 bg-[#5A4634] rounded-full flex items-center justify-center text-white shadow-sm flex-shrink-0">
-                <Sparkles className="h-5 w-5 sm:h-8 sm:w-8 text-[#B08A4A] fill-[#B08A4A]" />
+              <div className="h-10 w-10 min-[800px]:h-15 min-[800px]:w-15 bg-[#5A4634] rounded-full flex items-center justify-center text-white shadow-sm flex-shrink-0">
+                <Sparkles className="h-5 w-5 min-[800px]:h-7 min-[800px]:w-7 text-[#B08A4A] fill-[#B08A4A]" />
               </div>
-              <span className="font-serif font-bold text-lg sm:text-2xl lg:text-[34px] tracking-wide text-[#3D2E1F] whitespace-nowrap">
+              <span className="font-serif font-bold text-lg min-[800px]:text-[32px] tracking-wide text-[#3D2E1F] whitespace-nowrap">
                 The Candle Tales
               </span>
             </Link>

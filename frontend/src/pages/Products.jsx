@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getImageUrl } from '../utils/imageUtil';
+import { getImageUrl, compressImage } from '../utils/imageUtil';
 import { 
   getProducts, 
   createProduct, 
@@ -215,9 +215,20 @@ const Products = () => {
     setFormErrors(prev => ({ ...prev, images: null }));
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const files = Array.from(e.target.files);
-    const newImages = files.map(file => ({
+    
+    const processedFiles = await Promise.all(
+      files.map(async (file) => {
+        if (file.size > 5 * 1024 * 1024) {
+          addToast(`"${file.name}" exceeds 5MB. Automatically optimizing to reduce size...`, "info");
+          return await compressImage(file);
+        }
+        return file;
+      })
+    );
+
+    const newImages = processedFiles.map(file => ({
       file: file,
       url: null,
       preview: URL.createObjectURL(file)

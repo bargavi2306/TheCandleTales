@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import { useToast } from '../../context/ToastContext';
-import { ShoppingCart, ShoppingBag, Plus, Minus, Flame, Eye, Star } from 'lucide-react';
+import { ShoppingCart, ShoppingBag, Plus, Minus, Flame, Eye, Star, Heart } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../../config/businessConfig';
 import { getImageUrl } from '../../utils/imageUtil';
 
@@ -50,21 +50,23 @@ const ProductCard = ({ product }) => {
         />
         
         {/* Attribute Badges */}
-        <div className="absolute top-3.5 left-3.5 flex flex-col gap-1.5 z-10">
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {isOutOfStock ? (
-            <span className="h-8 px-3.5 flex items-center justify-center bg-rose-600 text-white text-[10px] sm:text-xs font-bold uppercase rounded-lg shadow-xs">
+            <span className="h-7 px-2.5 flex items-center justify-center bg-rose-50 border border-rose-200 text-rose-600 text-[10px] sm:text-xs font-bold uppercase rounded-full shadow-xs">
               Sold Out
             </span>
           ) : (
             <>
               {product.bestSeller && (
-                <span className="h-8 px-3.5 flex items-center justify-center bg-[#5A4634] text-white text-[10px] sm:text-xs font-bold uppercase rounded-lg shadow-xs">
-                  Best Seller
+                <span className="h-7 px-2.5 sm:px-3 flex items-center justify-center bg-white/95 backdrop-blur-xs border border-[#806747] text-[#5A4634] text-[10px] sm:text-xs font-bold rounded-full shadow-xs gap-1 sm:gap-1.5 transition-all">
+                  <Heart className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-rose-500 text-rose-500 flex-shrink-0" />
+                  <span>Best Seller</span>
                 </span>
               )}
               {product.featured && (
-                <span className="h-8 px-3.5 flex items-center justify-center bg-[#B08A4A] text-white text-[10px] sm:text-xs font-bold uppercase rounded-lg shadow-xs">
-                  Featured
+                <span className="h-7 px-2.5 sm:px-3 flex items-center justify-center bg-white/95 backdrop-blur-xs border border-[#806747] text-[#5A4634] text-[10px] sm:text-xs font-bold rounded-full shadow-xs gap-1 sm:gap-1.5 transition-all">
+                  <Star className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-[#806747] text-[#806747] flex-shrink-0" />
+                  <span>Featured</span>
                 </span>
               )}
             </>

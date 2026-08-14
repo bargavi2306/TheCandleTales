@@ -90,11 +90,18 @@ const Categories = () => {
     setIsDeleteOpen(true);
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    setSelectedFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
+    
+    let processedFile = file;
+    if (file.size > 5 * 1024 * 1024) {
+      addToast("Image exceeds 5MB. Automatically optimizing to reduce size...", "info");
+      processedFile = await compressImage(file);
+    }
+    
+    setSelectedFile(processedFile);
+    setPreviewUrl(URL.createObjectURL(processedFile));
   };
 
   // 1. Create Category Action (Optimistic UI state update)

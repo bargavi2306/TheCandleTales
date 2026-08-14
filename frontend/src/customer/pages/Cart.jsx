@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import CartItemRow from '../components/CartItemRow';
+import CartItemCard from '../components/CartItemCard';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import CheckoutModal from '../components/CheckoutModal';
 import { useToast } from '../../context/ToastContext';
@@ -11,7 +12,6 @@ import {
   Trash2, 
   ArrowLeft, 
   MessageCircle, 
-  Tag, 
   Truck 
 } from 'lucide-react';
 
@@ -26,10 +26,6 @@ const Cart = () => {
   // Checkout Modal state
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
-  // Promo Code State (Mock)
-  const [promoCode, setPromoCode] = useState('');
-  const [discount, setDiscount] = useState(0);
-
   const handleDeleteClick = (item) => {
     setItemToDelete(item);
     setIsDeleteModalOpen(true);
@@ -38,10 +34,10 @@ const Cart = () => {
   const handleConfirmDelete = () => {
     if (itemToDelete) {
       removeFromCart(itemToDelete.id);
-      addToast(`"${itemToDelete.name}" removed from cart.`, "info");
+      setIsDeleteModalOpen(false);
+      setItemToDelete(null);
+      addToast("Item removed from cart.", "info");
     }
-    setIsDeleteModalOpen(false);
-    setItemToDelete(null);
   };
 
   const handleUpdateQuantity = (id, newQty) => {
@@ -56,18 +52,6 @@ const Cart = () => {
     }
   };
 
-  const handleApplyPromo = (e) => {
-    e.preventDefault();
-    if (!promoCode.trim()) return;
-
-    if (promoCode.toUpperCase() === 'WELCOME10') {
-      setDiscount(0.1); // 10% discount
-      addToast("10% promo discount applied!", "success");
-    } else {
-      addToast("Invalid promo code. Try WELCOME10.", "error");
-    }
-  };
-
   const handleOpenCheckout = () => {
     if (cartItems.length === 0) {
       addToast("Your cart is empty. Add items before placing an order.", "error");
@@ -78,8 +62,7 @@ const Cart = () => {
 
   // Calculations
   const shippingFee = grandTotal > 75 ? 0 : 7.99;
-  const discountAmount = grandTotal * discount;
-  const finalTotal = grandTotal - discountAmount + shippingFee;
+  const finalTotal = grandTotal + shippingFee;
 
   if (cartItems.length === 0) {
     return (
@@ -153,7 +136,7 @@ const Cart = () => {
           {/* Mobile Card List View */}
           <div className="md:hidden space-y-3">
             {cartItems.map((item) => (
-              <CartItemRow
+              <CartItemCard
                 key={item.id}
                 item={item}
                 onUpdateQuantity={handleUpdateQuantity}
@@ -180,19 +163,12 @@ const Cart = () => {
               Order Summary
             </h3>
 
-            {/* Subtotal and items count */}
+             {/* Subtotal and items count */}
             <div className="space-y-3 text-xs text-gray-600 font-medium">
               <div className="flex justify-between">
                 <span>Items Subtotal ({totalItems})</span>
                 <span className="font-semibold text-gray-800">{BUSINESS_CONFIG.currencySymbol}{grandTotal.toFixed(2)}</span>
               </div>
-
-              {discount > 0 && (
-                <div className="flex justify-between text-emerald-600">
-                  <span>WELCOME10 Promo (10%)</span>
-                  <span>-{BUSINESS_CONFIG.currencySymbol}{discountAmount.toFixed(2)}</span>
-                </div>
-              )}
 
               <div className="flex justify-between">
                 <span>Estimated Shipping</span>
@@ -208,26 +184,6 @@ const Cart = () => {
                 </p>
               )}
             </div>
-
-            {/* Promo Code Input */}
-            <form onSubmit={handleApplyPromo} className="flex gap-2">
-              <div className="relative flex-grow">
-                <Tag className="absolute inset-y-0 left-3 my-auto h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="WELCOME10"
-                  value={promoCode}
-                  onChange={(e) => setPromoCode(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-200 focus:outline-none focus:ring-primary focus:border-primary rounded-xl text-xs bg-gray-50/20 text-gray-800 uppercase"
-                />
-              </div>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl text-xs transition-colors cursor-pointer"
-              >
-                Apply
-              </button>
-            </form>
 
             {/* Final Total */}
             <div className="flex justify-between border-t border-gray-100 pt-4 text-sm font-bold text-gray-800">

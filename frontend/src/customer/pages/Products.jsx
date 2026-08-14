@@ -228,7 +228,7 @@ const Products = () => {
 
       {/* Product Cards Grid */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 min-[600px]:grid-cols-3 min-[800px]:grid-cols-4 gap-3 sm:gap-4">
           {[1, 2, 3, 4, 5, 6, 7, 8].map(n => <SkeletonCard key={n} />)}
         </div>
       ) : currentItems.length === 0 ? (
@@ -245,7 +245,7 @@ const Products = () => {
         </div>
       ) : (
         <div className="space-y-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 min-[600px]:grid-cols-3 min-[800px]:grid-cols-4 gap-3 sm:gap-4">
             {currentItems.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
